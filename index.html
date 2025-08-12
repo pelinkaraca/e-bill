@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Teknisyen Günlük Raporu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #ffffff;
+      color: #333333;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 12px;
+      border: 2px solid #009688;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 40px;
+    }
+
+    .left-info, .right-info {
+      font-size: 16px;
+    }
+
+    .left-info p, .right-info p {
+      margin: 6px 0;
+    }
+
+    .right-info {
+      text-align: right;
+    }
+
+    .section-title, h2 {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #333333;
+    }
+
+    .stok-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .stok-tables {
+      flex: 1;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    th {
+      background-color: #009688;
+      color: white;
+      padding: 10px;
+    }
+
+    td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .qr-section {
+      width: 200px;
+      text-align: center;
+      padding-top: 40px;
+    }
+
+    .qr-section img {
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    .pdf-button, .pdf-link {
+      display: inline-block;
+      padding: 8px 12px;
+      background-color: #9c27b0;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .pdf-button:hover, .pdf-link:hover {
+      background-color: #7b1fa2;
+    }
+
+    .transactions-section {
+      margin-bottom: 60px;
+    }
+
+    .qr-img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .qr-pdf-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Giriş/Çıkış renklendirme */
+    tbody tr.in { background-color: #e8f5e9 !important; }   /* açık yeşil */
+    tbody tr.out { background-color: #fdecea !important; }  /* açık kırmızı */
+  </style>
+</head>
+<body>
+
+  <!-- BÖLÜM 1 -->
+  <div class="header-container">
+    <div class="left-info">
+      <p><strong>Teknisyen Adı:</strong> Pelin Karaca</p>
+      <p><strong>Teknisyen No:</strong> 0000000000</p>
+      <p><strong>Servis No:</strong> 1111111111</p>
+    </div>
+    <div class="right-info">
+      <p><strong>Tarih:</strong> <span id="bugun"></span></p>
+    </div>
+  </div>
+
+  <!-- BÖLÜM 2 -->
+  <div class="section-title">Teknisyen Günlük Stok Bilgisi</div>
+
+  <div class="stok-container">
+    <div class="stok-tables">
+      <div>
+        <strong>Bugün Transferle Gelen Malzemeler</strong>
+        <table>
+          <thead>
+            <tr>
+              <th>Malzeme Kodu</th>
+              <th>Malzeme İsmi</th>
+              <th>Adet</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>123456</td>
+              <td>Pompa Motoru</td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td>789012</td>
+              <td>Filtre Seti</td>
+              <td>5</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <strong>Mevcut Stok</strong>
+        <table>
+          <thead>
+            <tr>
+              <th>Malzeme Kodu</th>
+              <th>Malzeme İsmi</th>
+              <th>Adet</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>111111</td>
+              <td>Fan Motoru</td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <td>222222</td>
+              <td>Kompresör Ünitesi</td>
+              <td>1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="qr-section">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=irsaliye.pdf" alt="QR Kodu">
+      <br>
+      <a href="irsaliye.pdf" class="pdf-button" target="_blank">PDF Önizleme</a>
+    </div>
+  </div>
+
+  <!-- BÖLÜM 3 -->
+  <div class="transactions-section">
+    <h2>Gün İçi Teknisyen Hareketleri</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Fiş No</th>
+          <th>İşlem Tipi</th>
+          <th>Ürün cinsi</th>
+          <th>Kullanılan Malzeme</th>
+          <th>Saat</th>
+          <th>QR</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 1. satır: Çıkış (açık kırmızı) -->
+        <tr class="out">
+          <td>987654321</td>
+          <td>01 - Müşteride Malzeme Kullanımı</td>
+          <td>Çamaşır Makinesi</td>
+          <td>23456 - Pompa Motoru - 1 Adet, 789012 - Filtre Seti - 1 Adet</td>
+          <td>09:45</td>
+          <td>
+            <div class="qr-pdf-wrapper">
+              <img class="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=irsaliye01.pdf" alt="QR">
+              <a class="pdf-link" href="irsaliye01.pdf" target="_blank">PDF Önizleme</a>
+            </div>
+          </td>
+        </tr>
+
+        <!-- 2. satır: Giriş (açık yeşil) -->
+        <tr class="in">
+          <td>876543210</td>
+          <td>02 - Teknisyenden Teknisyene Transfer</td>
+          <td>Soğutucu</td>
+          <td>333333 - Kapı - 1 Adet</td>
+          <td>11:30</td>
+          <td>
+            <div class="qr-pdf-wrapper">
+              <img class="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=irsaliye02.pdf" alt="QR">
+              <a class="pdf-link" href="irsaliye02.pdf" target="_blank">PDF Önizleme</a>
+            </div>
+          </td>
+        </tr>
+
+        <!-- 3. satır: Giriş (açık yeşil) -->
+        <tr class="in">
+          <td>765432109</td>
+          <td>03 - CAKVA</td>
+          <td>Espresso Makinesi</td>
+          <td>—</td>
+          <td>13:10</td>
+          <td>
+            <div class="qr-pdf-wrapper">
+              <img class="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=irsaliye03.pdf" alt="QR">
+              <a class="pdf-link" href="irsaliye03.pdf" target="_blank">PDF Önizleme</a>
+            </div>
+          </td>
+        </tr>
+
+        <!-- 4. satır: Çıkış (açık kırmızı) -->
+        <tr class="out">
+          <td>654321098</td>
+          <td>04 - Arızalı İade</td>
+          <td>Bulaşık Makinesi</td>
+          <td>111222 - Pompa - 1 Adet</td>
+          <td>14:50</td>
+          <td>
+            <div class="qr-pdf-wrapper">
+              <img class="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=irsaliye04.pdf" alt="QR">
+              <a class="pdf-link" href="irsaliye04.pdf" target="_blank">PDF Önizleme</a>
+            </div>
+          </td>
+        </tr>
+
+        <!-- 5. satır: Çıkış (açık kırmızı) -->
+        <tr class="out">
+          <td>543210987</td>
+          <td>02 - Teknisyenden Teknisyene Transfer</td>
+          <td>Çamaşır Makinesi</td>
+          <td>111111 - Fan Motoru - 1 Adet</td>
+          <td>16:20</td>
+          <td>
+            <div class="qr-pdf-wrapper">
+              <img class="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=irsaliye05.pdf" alt="QR">
+              <a class="pdf-link" href="irsaliye05.pdf" target="_blank">PDF Önizleme</a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TARİH OTOMASYONU -->
+  <script>
+    const bugun = new Date();
+    const formatliTarih = bugun.toLocaleDateString('tr-TR');
+    document.getElementById("bugun").innerText = formatliTarih;
+  </script>
+
+</body>
+</html>
